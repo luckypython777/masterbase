@@ -71,7 +71,7 @@ jobs:
         tools: cs2pr, composer, php-cs-fixer, phpunit:9.*, phpstan
         extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, mysql, mysqli, intl, pcov
         ini-values: post_max_size=256M, short_open_tag=On             
-        coverage: pcov
+#        coverage: pcov
         php-version: ${{ matrix.php-versions }}   
         
     - name: Get composer cache directory
@@ -167,7 +167,7 @@ jobs:
         npm install --ignore-scripts
         npm install -g artillery --allow-root --unsafe-perm=true
         artillery -V
-        artillery quick --count 10 -n 20 http://masterbase.test/
+        artillery quick --count 10 -n 20 http://codica.com
 
     - name: Send Slack notification
       uses: 8398a7/action-slack@v2
@@ -180,27 +180,27 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
 
     - name: Generate Coveralls Report
-      run: ./vendor/bin/phpunit --coverage-clover ./build/logs/coveralls/lcov.info    
+      run: ./vendor/bin/phpunit ./build/logs/coveralls/lcov.info    
 
-    - name: Coveralls Export 
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        COVERALLS_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
-        path-to-lcov: ./build/logs/coveralls/lcov.info
+#    - name: Coveralls Export 
+#      uses: coverallsapp/github-action@master
+#      with:
+#        github-token: ${{ secrets.GITHUB_TOKEN }}
+#        COVERALLS_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+#        path-to-lcov: ./build/logs/coveralls/lcov.info
 #        path-to-lcov: ./build/logs/coveralls/clover.xml
 
 
 
-#  sonarcloud:
-#    runs-on: ubuntu-latest
-#    steps:
-#    - uses: actions/checkout@v2
-#      with:
-#        # Disabling shallow clone is recommended for improving relevancy of reporting
-#        fetch-depth: 0
-#    - name: SonarCloud Scan
-#      uses: sonarsource/sonarcloud-github-action@master
-#      env:
-#        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  
+  sonarcloud:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        # Disabling shallow clone is recommended for improving relevancy of reporting
+        fetch-depth: 0
+    - name: SonarCloud Scan
+      uses: sonarsource/sonarcloud-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  
