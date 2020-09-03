@@ -190,8 +190,6 @@ jobs:
 #        path-to-lcov: ./build/logs/coveralls/lcov.info
 #        path-to-lcov: ./build/logs/coveralls/clover.xml
 
-
-
   sonarcloud:
     runs-on: ubuntu-latest
     steps:
