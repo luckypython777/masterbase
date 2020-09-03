@@ -24,7 +24,7 @@ jobs:
     strategy:
         matrix:
             php: [7.*]
-            laravel: [7.*]
+            laravel: [8.*]
             dependency-version: [prefer-dist] # , prefer-stable
             os: [ubuntu-latest]
             env: [.env.test.db, .env.ci] # , .env.server
