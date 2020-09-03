@@ -90,8 +90,7 @@ jobs:
 #composer update  --${{ matrix.dependency-version }} --no-interaction --no-suggest      
 
     - name: Copy .env
-      run: |
-      php -r "file_exists('.env') || copy('${{ matrix.env }}', '.env');" 
+      run: php -r "file_exists('.env') || copy('${{ matrix.env }}', '.env');" 
 
     - name: Generate key
       run: php artisan key:generate
