@@ -24,14 +24,14 @@ jobs:
     strategy:
         matrix:
             php: [7.4]
-            laravel: [7.*]
+            laravel: [8.*]
             dependency-version: [prefer-dist] # , prefer-stable
             os: [ubuntu-latest]
             env: [.env.test.db] # , .env.ci, .env.server
             phpstan: [4] # , 5, 6         
             include:
-                - laravel: 7.*
-                  testbench: 5.*
+                - laravel: 8.*
+                  testbench: 6.*
 
     env:
       extensions: intl, pcov
