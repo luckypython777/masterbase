@@ -89,8 +89,8 @@ jobs:
       run: composer install --prefer-dist --no-progress --no-suggest
 #composer update  --${{ matrix.dependency-version }} --no-interaction --no-suggest      
 
-    - name: Copy .env
-      run: php -r "file_exists('.env') || copy('${{ matrix.env }}', '.env');" 
+#    - name: Copy .env
+#      run: php -r "file_exists('.env') || copy('${{ matrix.env }}', '.env');" 
 
     - name: Generate key
       run: php artisan key:generate
