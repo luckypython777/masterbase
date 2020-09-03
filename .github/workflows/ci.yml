@@ -19,19 +19,19 @@ jobs:
           DB_USERNAME: root
         ports:
           - 3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=15s --health-retries=3
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 # end ci header jobs
     strategy:
         matrix:
             php: [7.4]
-            laravel: [8.*]
+            laravel: [7.*]
             dependency-version: [prefer-dist] # , prefer-stable
             os: [ubuntu-latest]
-            env: [.env.test.db, .env.ci] # , .env.server
-            phpstan: [4, 5, 6]        
+            env: [.env.test.db] # , .env.ci, .env.server
+            phpstan: [4] # , 5, 6         
             include:
-                - laravel: 8.*
-                  testbench: 6.*
+                - laravel: 7.*
+                  testbench: 5.*
 
     env:
       extensions: intl, pcov
@@ -43,7 +43,7 @@ jobs:
     - uses: actions/checkout@master   
     - uses: actions/setup-node@v1
       with:
-        node-version: '14.*'
+        node-version: '14.x'
 
     - name: Setup cache environment
       id: extcache
@@ -78,19 +78,19 @@ jobs:
       id: composercache
       run: echo "::set-output name=dir::$(composer config cache-files-dir)"          
 
-    - name: Cache dependencies
-      uses: actions/cache@v2
-      with:
-        path: ${{ steps.composercache.outputs.dir }}
-        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-        restore-keys: ${{ runner.os }}-composer-
+#    - name: Cache dependencies
+#      uses: actions/cache@v2
+#      with:
+#        path: ${{ steps.composercache.outputs.dir }}
+#        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+#        restore-keys: ${{ runner.os }}-composer-
 
     - name: Install Dependencies
       run: composer install --prefer-dist --no-progress --no-suggest
 #composer update  --${{ matrix.dependency-version }} --no-interaction --no-suggest      
 
-#    - name: Copy .env
-#      run: php -r "file_exists('.env') || copy('${{ matrix.env }}', '.env');" 
+    - name: Copy .env
+      run: php -r "file_exists('.env') || copy('${{ matrix.env }}', '.env');" 
 
     - name: Generate key
       run: php artisan key:generate
@@ -132,7 +132,7 @@ jobs:
       run: |
         mkdir -p database
         touch database/database.sqlite
-        php artisan migrate
+        php artisan migrate  
       
 #    - name: Env Set to Server, Setup & Migrate DB
 #      if: matrix.env == '.env.server'
@@ -144,7 +144,7 @@ jobs:
     - name: Setup problem matchers for PHPUnit
       run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"  
 
-    - name: PHPStan 
+    - name: PHPStan
       continue-on-error: true
       run: ./vendor/bin/phpstan analyse -l ${{ matrix.phpstan }} --memory-limit 1G --error-format=github
     
@@ -169,6 +169,16 @@ jobs:
         artillery -V
         artillery quick --count 10 -n 20 http://masterbase.test/
 
+    - name: Send Slack notification
+      uses: 8398a7/action-slack@v2
+      if: always()
+      with:
+        status: ${{ job.status }} 
+        fields: repo,message,commit,author,action,eventName,ref,workflow
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+
     - name: Generate Coveralls Report
       run: ./vendor/bin/phpunit --coverage-clover ./build/logs/coveralls/lcov.info
        
@@ -183,20 +193,19 @@ jobs:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         COVERALLS_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
         path-to-lcov: ./build/logs/coveralls/lcov.info
-#        path-to-lcov: ./build/logs/coveralls/clover.xml 
+#        path-to-lcov: ./build/logs/coveralls/clover.xml
 
-    - name: SonarCloud Scan
-      uses: sonarsource/sonarcloud-github-action@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} 
 
-    - name: Send Slack notification
-      uses: 8398a7/action-slack@v2
-      if: always()
-      with:
-        status: ${{ job.status }} 
-        fields: repo,message,commit,author,action,eventName,ref,workflow
-      env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}         
+
+#  sonarcloud:
+#    runs-on: ubuntu-latest
+#    steps:
+#    - uses: actions/checkout@v2
+#      with:
+#        # Disabling shallow clone is recommended for improving relevancy of reporting
+#        fetch-depth: 0
+#    - name: SonarCloud Scan
+#      uses: sonarsource/sonarcloud-github-action@master
+#      env:
+#        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  
