@@ -175,7 +175,7 @@ jobs:
       with: 
         status: ${{ job.status }}
         fields: repo,message,commit,author,action,eventName,ref,workflow
-      env:
+      env:   
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
 
