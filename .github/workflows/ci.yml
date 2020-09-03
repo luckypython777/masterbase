@@ -144,7 +144,7 @@ jobs:
     - name: Setup problem matchers for PHPUnit
       run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"  
 
-    - name: PHPStan
+    - name: PHPStan 
       continue-on-error: true
       run: ./vendor/bin/phpstan analyse -l ${{ matrix.phpstan }} --memory-limit 1G --error-format=github
     
