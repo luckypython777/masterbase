@@ -23,7 +23,7 @@ jobs:
 # end ci header jobs
     strategy:
         matrix:
-            php: [7.*]
+            php: [7.4]
             laravel: [8.*]
             dependency-version: [prefer-dist] # , prefer-stable
             os: [ubuntu-latest]
@@ -132,7 +132,7 @@ jobs:
       run: |
         mkdir -p database
         touch database/database.sqlite
-        php artisan migrate  
+        php artisan migrate  --no-interaction
       
 #    - name: Env Set to Server, Setup & Migrate DB
 #      if: matrix.env == '.env.server'
