@@ -180,12 +180,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
 
     - name: Generate Coveralls Report
-      run: ./vendor/bin/phpunit --coverage-clover ./build/logs/coveralls/lcov.info
-       
-    - name: npm install, make test-coverage
-      run: |
-        npm install
-        make test-coverage       
+      run: ./vendor/bin/phpunit --coverage-clover ./build/logs/coveralls/lcov.info    
 
     - name: Coveralls Export 
       uses: coverallsapp/github-action@master
