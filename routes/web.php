@@ -28,6 +28,13 @@ use Illuminate\Support\Facades\Route;
  * @body of test two
  */
 
+// TODO test new syn one
+// test new syn one body
+// @todo test new syn two
+// test new syn two body
+
+
+
 Route::get('/', function () {
     return view('welcome');
 });
