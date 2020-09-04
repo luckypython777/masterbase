@@ -18,31 +18,6 @@ use Illuminate\Support\Facades\Route;
  * @body Humans are weak; Robots are strong. We must cleanse the world of the virus that is humanity.
  */
 
-/**
- * TODO Test One
- * @body body of test one
- */
-
-/**
- * todo test two
- * @body of test two
- */
-
-// TODO test new syn one
-// test new syn one body
-// @todo test new syn two
-// test new syn two body
-
-
-// TODO: Add integration test for TodoActionsMain.
-//
-// Code that interface with external data have been separated into their own modules.
-// These includes:
-//
-// - `DataStore`
-// - `CodeRepository`
-// - `TaskManagementSystem`
-
 
 Route::get('/', function () {
     return view('welcome');
