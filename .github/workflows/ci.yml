@@ -163,7 +163,7 @@ jobs:
         ./vendor/bin/phpunit --coverage-html reports/
 
     - name: PHP Insights
-      run: php -d memory_limit=2000M vendor/bin/phpinsights -n --ansi --fix --format=github-action
+      run: php -d memory_limit=2000M vendor/bin/phpinsights -n --ansi --fix --format=json > test.json
 
     - name: Artillery Tests
       run: |
