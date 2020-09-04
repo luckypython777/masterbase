@@ -76,6 +76,11 @@ jobs:
         ini-values: post_max_size=256M, short_open_tag=On             
 #        coverage: pcov
         php-version: ${{ matrix.php-versions }}   
+
+    - name: Composer install various testing tools
+      run: |
+        composer require nunomaduro/phpinsights --dev        
+        php artisan vendor:publish --provider="NunoMaduro\PhpInsights\Application\Adapters\Laravel\InsightsServiceProvider"
         
     - name: Get composer cache directory
       id: composercache
