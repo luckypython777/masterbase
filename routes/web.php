@@ -34,6 +34,15 @@ use Illuminate\Support\Facades\Route;
 // test new syn two body
 
 
+// TODO: Add integration test for TodoActionsMain.
+//
+// Code that interface with external data have been separated into their own modules.
+// These includes:
+//
+// - `DataStore`
+// - `CodeRepository`
+// - `TaskManagementSystem`
+
 
 Route::get('/', function () {
     return view('welcome');

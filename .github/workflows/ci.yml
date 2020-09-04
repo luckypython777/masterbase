@@ -179,8 +179,8 @@ jobs:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
 
-    - name: Generate Coveralls Report
-      run: ./vendor/bin/phpunit ./build/logs/coveralls/lcov.info    
+#    - name: Generate Coveralls Report
+#      run: ./vendor/bin/phpunit ./build/logs/coveralls/lcov.info    
 
 #    - name: Coveralls Export 
 #      uses: coverallsapp/github-action@master
