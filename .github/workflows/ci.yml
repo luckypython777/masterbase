@@ -2,8 +2,11 @@ name: Masterbase Tests
 
 on:
   push:
+    branches: [ master ]    
   schedule:
       - cron: '0 0 * * *'
+  pull_request:
+    branches: [ master ]      
 
 jobs:
 # update ci header jobs
