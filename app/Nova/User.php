@@ -15,6 +15,8 @@ class User extends Resource
      *
      * @var string
      */
+    
+    // remove public
     public static $model = \App\Models\User::class;
 
     /**
