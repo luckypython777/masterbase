@@ -1,8 +1,11 @@
 name: Masterbase Tests
 
-on: [push, pull_request]  
+on: [push, pull_request]
+on:
+  push  
   schedule:
-      - cron: '0 0 * * *'    
+      - cron: '0 0 * * *'
+  pull_request    
 
 jobs:
 # update ci header jobs
