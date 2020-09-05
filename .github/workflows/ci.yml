@@ -81,6 +81,7 @@ jobs:
       run: |
         composer require nunomaduro/phpinsights --dev        
         php artisan vendor:publish --provider="NunoMaduro\PhpInsights\Application\Adapters\Laravel\InsightsServiceProvider"
+        composer require --dev phpstan/phpstan
         
     - name: Get composer cache directory
       id: composercache
