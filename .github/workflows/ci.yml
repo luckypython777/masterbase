@@ -192,6 +192,14 @@ jobs:
         artillery -V
         artillery quick --count 10 -n 20 http://codica.com
 
+      - name: Audit URLs using Lighthouse
+        uses: treosh/lighthouse-ci-action@v3
+        with:
+          configPath: './lighthouserc.json'
+          budgetPath: ./budget.json # test performance budgets
+          uploadArtifacts: true # save results as an action artifacts
+          temporaryPublicStorage: true # upload lighthouse report to the temporary storage
+
     - name: Send Slack notification
       uses: 8398a7/action-slack@v3
       with: 
@@ -201,17 +209,6 @@ jobs:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
       if: always()               
-
-#    - name: Generate Coveralls Report
-#      run: ./vendor/bin/phpunit ./build/logs/coveralls/lcov.info    
-
-#    - name: Coveralls Export 
-#      uses: coverallsapp/github-action@master
-#      with:
-#        github-token: ${{ secrets.GITHUB_TOKEN }}
-#        COVERALLS_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
-#        path-to-lcov: ./build/logs/coveralls/lcov.info
-#        path-to-lcov: ./build/logs/coveralls/clover.xml
 
   sonarcloud:
     runs-on: ubuntu-latest
