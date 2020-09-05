@@ -155,7 +155,7 @@ jobs:
 
     - name: PHPStan
       continue-on-error: true
-      run: ./vendor/bin/phpstan analyse -l ${{ matrix.phpstan }} --memory-limit 1G --error-format=github
+      run: ./vendor/bin/phpstan analyse -l ${{ matrix.phpstan }} --memory-limit 1G --error-format=json
     
     - name: PHP CS Fixer 
       run: php artisan fixer:fix 
