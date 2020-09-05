@@ -38,7 +38,7 @@ jobs:
 
     env:
       extensions: intl, pcov
-      key: cache-21  
+      key: cache-22 
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.env}} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
 
