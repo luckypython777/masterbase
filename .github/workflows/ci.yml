@@ -178,14 +178,14 @@ jobs:
         artillery quick --count 10 -n 20 http://codica.com
 
     - name: Send Slack notification
-      uses: 8398a7/action-slack@v2
-      if: always()
+      uses: 8398a7/action-slack@v3
       with: 
         status: ${{ job.status }}
         fields: repo,message,commit,author,action,eventName,ref,workflow
       env:   
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+      if: always()               
 
 #    - name: Generate Coveralls Report
 #      run: ./vendor/bin/phpunit ./build/logs/coveralls/lcov.info    
