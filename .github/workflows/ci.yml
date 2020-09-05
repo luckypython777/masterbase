@@ -74,7 +74,7 @@ jobs:
         tools: cs2pr, composer, php-cs-fixer, phpunit:9.*, phpstan
         extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, mysql, mysqli, intl, codecov # pcov
         ini-values: post_max_size=256M, short_open_tag=On             
-        coverage: codecov
+        coverage: clover
         php-version: ${{ matrix.php-versions }}   
 
     - name: Composer install various testing tools
@@ -165,7 +165,7 @@ jobs:
         DB_DATABASE: database/database.sqlite
       run: |
         mkdir reports
-        ./vendor/bin/phpunit --coverage-html reports/
+        ./vendor/bin/phpunit --coverage-clover coverage.xml
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1
