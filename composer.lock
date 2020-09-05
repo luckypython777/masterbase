@@ -1612,12 +1612,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "d3489bd33e26c2d77e51faac38cf73d54a531177"
+                "reference": "6061e9351c2e440fa51a7889a7558d63a81c0143"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/d3489bd33e26c2d77e51faac38cf73d54a531177",
-                "reference": "d3489bd33e26c2d77e51faac38cf73d54a531177",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/6061e9351c2e440fa51a7889a7558d63a81c0143",
+                "reference": "6061e9351c2e440fa51a7889a7558d63a81c0143",
                 "shasum": ""
             },
             "require": {
@@ -1771,7 +1771,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2020-09-03T16:03:28+00:00"
+            "time": "2020-09-04T21:12:31+00:00"
         },
         {
             "name": "laravel/sanctum",
@@ -2162,12 +2162,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/livewire/livewire.git",
-                "reference": "5de5ad06dfc931b496940df1522d7f415bb0fc95"
+                "reference": "7c74ffbdcc265511e05b4125ae35ff450da91c7b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/livewire/livewire/zipball/5de5ad06dfc931b496940df1522d7f415bb0fc95",
-                "reference": "5de5ad06dfc931b496940df1522d7f415bb0fc95",
+                "url": "https://api.github.com/repos/livewire/livewire/zipball/7c74ffbdcc265511e05b4125ae35ff450da91c7b",
+                "reference": "7c74ffbdcc265511e05b4125ae35ff450da91c7b",
                 "shasum": ""
             },
             "require": {
@@ -2226,7 +2226,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-09-04T13:49:29+00:00"
+            "time": "2020-09-05T20:23:56+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -8268,16 +8268,16 @@
         },
         {
             "name": "laravel/jetstream",
-            "version": "v0.6.2",
+            "version": "v0.6.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/jetstream.git",
-                "reference": "6ac870f0af7aee4e6cf835771093e8466576cca2"
+                "reference": "f00615f26d59e7adf16c889207c054ab079f462a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/jetstream/zipball/6ac870f0af7aee4e6cf835771093e8466576cca2",
-                "reference": "6ac870f0af7aee4e6cf835771093e8466576cca2",
+                "url": "https://api.github.com/repos/laravel/jetstream/zipball/f00615f26d59e7adf16c889207c054ab079f462a",
+                "reference": "f00615f26d59e7adf16c889207c054ab079f462a",
                 "shasum": ""
             },
             "require": {
@@ -8330,7 +8330,7 @@
                 "issues": "https://github.com/laravel/jetstream/issues",
                 "source": "https://github.com/laravel/jetstream"
             },
-            "time": "2020-09-04T13:52:22+00:00"
+            "time": "2020-09-04T15:04:56+00:00"
         },
         {
             "name": "laravel/nova",
