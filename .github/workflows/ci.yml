@@ -151,14 +151,14 @@ jobs:
       run: echo "::add-matcher::${{ runner.tool_cache }}/php.json"        
 
     - name: Setup problem matchers for PHPUnit
-      run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"  
+      run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json" 
+      
+    - name: PHP CS Fixer 
+      run: php artisan fixer:fix       
 
     - name: PHPStan
       continue-on-error: true
       run: ./vendor/bin/phpstan analyse -l ${{ matrix.phpstan }} --memory-limit 1G --error-format=json
-    
-    - name: PHP CS Fixer 
-      run: php artisan fixer:fix 
     
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       env:
