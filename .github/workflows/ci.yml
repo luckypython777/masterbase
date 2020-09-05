@@ -72,9 +72,9 @@ jobs:
         COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         update: true
         tools: cs2pr, composer, php-cs-fixer, phpunit:9.*, phpstan
-        extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, mysql, mysqli, intl, pcov
+        extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, mysql, mysqli, intl, codecov # pcov
         ini-values: post_max_size=256M, short_open_tag=On             
-#        coverage: pcov
+        coverage: codecov
         php-version: ${{ matrix.php-versions }}   
 
     - name: Composer install various testing tools
@@ -87,12 +87,12 @@ jobs:
       id: composercache
       run: echo "::set-output name=dir::$(composer config cache-files-dir)"          
 
-#    - name: Cache dependencies
-#      uses: actions/cache@v2
-#      with:
-#        path: ${{ steps.composercache.outputs.dir }}
-#        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-#        restore-keys: ${{ runner.os }}-composer-
+    - name: Cache dependencies
+      uses: actions/cache@v2
+      with:
+        path: ${{ steps.composercache.outputs.dir }}
+        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+        restore-keys: ${{ runner.os }}-composer-
 
     - name: Install Dependencies
       run: composer install --prefer-dist --no-progress --no-suggest
@@ -115,7 +115,6 @@ jobs:
     
     - name: Env Set to Test DB, Setup
       if: matrix.env == '.env.test.db'
-#      uses: shivammathur/setup-php@v2
       env:
         DB_PORT: ${{ job.services.mysql.ports[3306] }}
       run: |
@@ -167,6 +166,19 @@ jobs:
       run: |
         mkdir reports
         ./vendor/bin/phpunit --coverage-html reports/
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+#        file: ./coverage.xml
+#        files: ./coverage1.xml,./coverage2.xml
+#        directory: ./coverage/reports/
+#        flags: unittests
+#        env_vars: OS,PYTHON
+#        name: codecov-umbrella
+        fail_ci_if_error: true
+#        path_to_write_report: ./coverage/codecov_report.gz        
 
     - name: PHP Insights
       run: | 
