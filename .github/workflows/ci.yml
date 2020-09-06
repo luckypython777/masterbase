@@ -192,13 +192,23 @@ jobs:
         artillery -V
         artillery quick --count 10 -n 20 http://codica.com
 
-    - name: Audit URLs using Lighthouse
-      uses: treosh/lighthouse-ci-action@v3
+    - name: Run Lighthouse
+    - run: mkdir /tmp/artifacts
+      uses: foo-software/lighthouse-check-action@master
       with:
-        configPath: './lighthouserc.json'
-        budgetPath: ./budget.json # test performance budgets
-        uploadArtifacts: true # save results as an action artifacts
-        temporaryPublicStorage: true # upload lighthouse report to the temporary storage
+        accessToken: ${{ secrets.LIGHTHOUSE_CHECK_GITHUB_ACCESS_TOKEN }}
+        author: ${{ github.actor }}
+        branch: ${{ github.ref }}
+        outputDirectory: /tmp/artifacts
+        urls: 'https://www.foo.software,https://www.foo.software/contact'
+        sha: ${{ github.sha }}
+        slackWebhookUrl: ${{ secrets.SLACK_WEBHOOK }}
+        
+    - name: Upload artifacts
+      uses: actions/upload-artifact@master
+      with:
+        name: Lighthouse reports
+        path: /tmp/artifacts
 
     - name: Send Slack notification
       uses: 8398a7/action-slack@v3
