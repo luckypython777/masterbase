@@ -114,7 +114,7 @@ jobs:
         mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -e "SHOW DATABASES"
 
     - name: ZAP Scan
-      uses: zaproxy/action-baseline@v0.3.0
+      uses: zaproxy/action-baseline@master
       with:
         target: 'https://www.zaproxy.org'
         rules_file_name: './rules.tsv'
