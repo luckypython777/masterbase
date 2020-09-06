@@ -222,18 +222,18 @@ jobs:
       with:
         token: ${{ secrets.GITHUB_TOKEN }}  
 
-     - name: Save Files Changed
-       run: |
+    - name: Save Files Changed
+      run: |
         mkdir reports/files_changed
         cat ${HOME}/files.json
         cat ${HOME}/files_modified.json
         cat ${HOME}/files_added.json
         cat ${HOME}/files_deleted.json   
         
-     - name: Dusk Tests
-       run: |
-         php artisan dusk:chrome-driver 84
-         php artisan dusk
+    - name: Dusk Tests 
+      run: |
+        php artisan dusk:chrome-driver 84
+        php artisan dusk
 
   sonarcloud:
     runs-on: ubuntu-latest
