@@ -112,7 +112,12 @@ jobs:
       run: |
         mysql --version
         mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -e "SHOW DATABASES"
-    
+
+    - name: ZAP Scan
+      uses: zaproxy/action-baseline@v0.3.0
+      with:
+        target: 'http://masterbase.test'
+
     - name: Env Set to Test DB, Setup
       if: matrix.env == '.env.test.db'
       env:
