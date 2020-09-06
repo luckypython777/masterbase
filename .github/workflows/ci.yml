@@ -201,11 +201,11 @@ jobs:
         temporaryPublicStorage: true # upload lighthouse report to the temporary storage
  
     - name: ZAP Scan
-    uses: zaproxy/action-baseline@master
-    with:
-      target: 'https://www.zaproxy.org'
-      rules_file_name: './rules.tsv'
-      fail_action: 'false'
+      uses: zaproxy/action-baseline@master
+      with:
+        target: 'https://www.zaproxy.org'
+        rules_file_name: './rules.tsv'
+        fail_action: 'false'
 
     - name: Send Slack notification
       uses: 8398a7/action-slack@v3
