@@ -232,7 +232,7 @@ jobs:
         
     - name: Dusk Tests 
       run: |
-        php -r "file_exists('DuskTestCaseExample.php') || copy('${{ DuskTestCaseExample.php }}', 'DuskTestCase.php');" 
+        php -r "file_exists('DuskTestCaseExample') || copy('${{ DuskTestCaseExample }}', 'DuskTestCase.php');" 
         chmod -R 0755 vendor/laravel/dusk/bin/
         php artisan dusk:chrome-driver 84
         php artisan dusk --log-junit dusk.log
