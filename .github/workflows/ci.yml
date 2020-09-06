@@ -192,8 +192,10 @@ jobs:
         artillery -V
         artillery quick --count 10 -n 20 http://codica.com
 
+    - name: Create Lighthouse Artifact Directory
+      run: mkdir /tmp/artifacts
+
     - name: Run Lighthouse
-    - run: mkdir /tmp/artifacts
       uses: foo-software/lighthouse-check-action@master
       with:
         accessToken: ${{ secrets.LIGHTHOUSE_CHECK_GITHUB_ACCESS_TOKEN }}
