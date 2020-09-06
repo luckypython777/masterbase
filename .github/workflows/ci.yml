@@ -220,7 +220,15 @@ jobs:
     - name: Track Files Changed
       uses: lots0logs/gh-action-get-changed-files@2.1.4
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}                   
+        token: ${{ secrets.GITHUB_TOKEN }}  
+
+     - name: Save Files Changed
+       run: |
+        mkdir reports/files_changed
+        cat ${HOME}/reports/files_changed/files.json
+        cat ${HOME}/reports/files_changed/files_modified.json
+        cat ${HOME}/reports/files_changed/files_added.json
+        cat ${HOME}/reports/files_changed/files_deleted.json                         
 
   sonarcloud:
     runs-on: ubuntu-latest
