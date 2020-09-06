@@ -192,13 +192,13 @@ jobs:
         artillery -V
         artillery quick --count 10 -n 20 http://codica.com
 
-      - name: Audit URLs using Lighthouse
-        uses: treosh/lighthouse-ci-action@v3
-        with:
-          urls: https://www.foo.software
-          budgetPath: ./budget.json # test performance budgets
-          uploadArtifacts: true # save results as an action artifacts
-          temporaryPublicStorage: true # upload lighthouse report to the temporary storage
+    - name: Audit URLs using Lighthouse
+      uses: treosh/lighthouse-ci-action@v3
+      with:
+        urls: https://www.foo.software
+        budgetPath: ./budget.json # test performance budgets
+        uploadArtifacts: true # save results as an action artifacts
+        temporaryPublicStorage: true # upload lighthouse report to the temporary storage
  
     - name: Send Slack notification
       uses: 8398a7/action-slack@v3
