@@ -233,7 +233,8 @@ jobs:
     - name: Dusk Tests 
       run: |
         php artisan dusk:chrome-driver 84
-        php artisan dusk
+#        php artisan dusk
+        php artisan dusk --log-junit dusk.log
 
   sonarcloud:
     runs-on: ubuntu-latest
