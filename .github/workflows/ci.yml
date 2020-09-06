@@ -231,7 +231,9 @@ jobs:
         cat ${HOME}/files_deleted.json   
         
      - name: Dusk Tests
-       run: php artisan dusk
+       run: |
+         php artisan dusk:chrome-driver 84
+         php artisan dusk
 
   sonarcloud:
     runs-on: ubuntu-latest
