@@ -117,6 +117,8 @@ jobs:
       uses: zaproxy/action-baseline@v0.3.0
       with:
         target: 'https://www.zaproxy.org'
+        rules_file_name: './rules.tsv'
+        fail_action: false
 
     - name: Env Set to Test DB, Setup
       if: matrix.env == '.env.test.db'
