@@ -113,13 +113,6 @@ jobs:
         mysql --version
         mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -e "SHOW DATABASES"
 
-    - name: ZAP Scan
-      uses: zaproxy/action-baseline@master
-      with:
-        target: 'https://www.zaproxy.org'
-        rules_file_name: './rules.tsv'
-        fail_action: 'false'
-
     - name: Env Set to Test DB, Setup
       if: matrix.env == '.env.test.db'
       env:
@@ -207,6 +200,13 @@ jobs:
         uploadArtifacts: true # save results as an action artifacts
         temporaryPublicStorage: true # upload lighthouse report to the temporary storage
  
+    - name: ZAP Scan
+    uses: zaproxy/action-baseline@master
+    with:
+      target: 'https://www.zaproxy.org'
+      rules_file_name: './rules.tsv'
+      fail_action: 'false'
+
     - name: Send Slack notification
       uses: 8398a7/action-slack@v3
       with: 
