@@ -48,6 +48,7 @@ jobs:
     - uses: actions/download-artifact@v2
       with:
         node-version: '14.x'
+        path: ${HOME}/*   
 
     - name: Setup cache environment
       id: extcache
@@ -231,15 +232,9 @@ jobs:
     - name: Track Files Changed
       uses: lots0logs/gh-action-get-changed-files@2.1.4
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}  
-
-    - name: Save Files Changed Setup
-      with:
-        path: ${HOME}/*   
+        token: ${{ secrets.GITHUB_TOKEN }}   
 
     - name: Save Files Changed
-      with:
-        path: ${HOME}/*    
       run: |
         mkdir reports/files_changed
         cat ${HOME}/files.json
