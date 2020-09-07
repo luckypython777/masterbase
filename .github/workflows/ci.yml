@@ -233,6 +233,10 @@ jobs:
       with:
         token: ${{ secrets.GITHUB_TOKEN }}  
 
+    - name: Save Files Changed Setup
+      with:
+        path: ${HOME}/*   
+
     - name: Save Files Changed
       with:
         path: ${HOME}/*    
