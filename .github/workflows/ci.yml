@@ -201,11 +201,21 @@ jobs:
         temporaryPublicStorage: true # upload lighthouse report to the temporary storage
  
     - name: ZAP Scan
-      uses: zaproxy/action-baseline@master
+      uses: zaproxy/action-baseline@master      
       with:
         target: 'https://www.zaproxy.org'
         rules_file_name: './rules.tsv'
         fail_action: 'false'
+
+    - name: copy Files
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        port: ${{ secrets.PORT }}
+        source: "tests/a.txt,tests/b.txt"
+        target: "test"        
 
     - name: Send Slack notification
       uses: 8398a7/action-slack@v3
@@ -223,12 +233,15 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}  
 
     - name: Save Files Changed
+      uses: actions/download-artifact@v2
+      with:
+        path: ${HOME}/*    
       run: |
         mkdir reports/files_changed
         cat ${HOME}/files.json
         cat ${HOME}/files_modified.json
         cat ${HOME}/files_added.json
-        cat ${HOME}/files_deleted.json   
+        cat ${HOME}/files_deleted.json  
         
     - name: Dusk Tests 
       run: |
